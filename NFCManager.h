@@ -2,6 +2,7 @@
 
 #include <QObject>
 #include <QNearFieldManager>
+#include <QNdefMessage>
 
 class NFCManager : public QObject
 {
@@ -16,6 +17,11 @@ private:
 public slots:
     void startNfcDetection();
     void stopNfcDetection();
+
+private slots:
     void targetDetected(QNearFieldTarget* target);
     void targetLost(QNearFieldTarget* target);
+    void targetError(QNearFieldTarget::Error error, QNearFieldTarget::RequestId request);
+    void ndefMessageRead(QNdefMessage* message);
+    void ndefMessageWritten();
 };

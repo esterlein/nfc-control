@@ -4,8 +4,8 @@ NFCManager::NFCManager(QObject* parent) :
     QObject(parent),
     m_nfcManager(new QNearFieldManager(this))
 {
-    connect(m_manager, SIGNAL(targetDetected(QNearFieldTarget*)), this, SLOT(targetDetected(QNearFieldTarget*)));
-    connect(m_manager, SIGNAL(targetLost(QNearFieldTarget*)), this, SLOT(targetLost(QNearFieldTarget*)));
+    connect(this, SIGNAL(targetDetected(QNearFieldTarget*)), this, SLOT(targetDetected(QNearFieldTarget*)));
+    connect(this, SIGNAL(targetLost(QNearFieldTarget*)), this, SLOT(targetLost(QNearFieldTarget*)));
 }
 
 void NFCManager::startNfcDetection()
@@ -20,7 +20,7 @@ void NFCManager::stopNfcDetection()
 
 void NFCManager::targetDetected(QNearFieldTarget* target)
 {
-    switch(m_touchAction){
+    /*switch(m_touchAction){
         case NoAction:
             break;
         case ReadNdef:
@@ -41,7 +41,7 @@ void NFCManager::targetDetected(QNearFieldTarget* target)
                 targetError(QNearFieldTarget::NdefWriteError, m_request);
             }
             break;
-        }
+        }*/
 }
 
 void NFCManager::targetLost(QNearFieldTarget* target)

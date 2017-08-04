@@ -12,21 +12,34 @@ ApplicationWindow {
     header: ToolBar {
         Button {
             id: navbutton
+            onClicked: drawer.interact()
         }
     }
 
     Drawer {
         id: drawer
         y: header.height
-        width: window.width * 0.6
+        width: window.width * 0.7
         height: window.height - header.height
+
+        Button {
+            id: nfcbutton
+            width: parent.width
+        }
+
+        function interact(){
+            if(!this.visible)
+                this.open()
+            else
+                this.close()
+        }
     }
 
     Label {
             id: content
 
-            text: "Aa"
-            font.pixelSize: 96
+            text: "Transcash"
+            font.pixelSize: 50
             anchors.fill: parent
             verticalAlignment: Label.AlignVCenter
             horizontalAlignment: Label.AlignHCenter

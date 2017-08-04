@@ -35,6 +35,21 @@ ApplicationWindow {
         }
     }
 
+    Loader {
+        id: loader
+
+        function loadFragment(index){
+            switch(index){
+            case 0:
+                loader.source = "FragmentNFC.qml"
+                break;
+            default:
+                loader.source = "FragmentNFC.qml"
+                break;
+            }
+        }
+    }
+
     Label {
             id: content
 

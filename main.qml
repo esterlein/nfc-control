@@ -1,13 +1,9 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
-import QtQuick.Window 2.2
-import QtNfc 5.2
 
 ApplicationWindow {
     id: window
     visible: true
-    width: 200
-        height: 228
 
     header: ToolBar {
         Button {
@@ -16,15 +12,47 @@ ApplicationWindow {
         }
     }
 
+    Button {
+        anchors.centerIn: parent
+        width: parent.width / 1.5
+        height: parent.height / 5
+    }
+
     Drawer {
         id: drawer
         y: header.height
         width: window.width * 0.7
         height: window.height - header.height
 
-        Button {
+        /*Button {
             id: nfcbutton
             width: parent.width
+        }*/
+
+        ListView {
+            anchors.fill: parent
+
+            delegate: Rectangle {
+                height: 80
+                anchors.left: parent.left
+                anchors.right: parent.right
+
+                Text {
+                    text: fragment
+                    anchors.fill: parent
+                    renderType: Text.NativeRendering
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+
+                    onClicked: loader.loadFragment(index)
+                }
+            }
+
+            model: navModel
         }
 
         function interact(){
@@ -33,6 +61,14 @@ ApplicationWindow {
             else
                 this.close()
         }
+    }
+
+    ListModel {
+        id: navModel
+
+        ListElement {fragment: "NFC"}
+        ListElement {fragment: "Smth1"}
+        ListElement {fragment: "Smth2"}
     }
 
     Loader {

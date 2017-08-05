@@ -3,6 +3,7 @@
 #include <QObject>
 #include <QNearFieldManager>
 #include <QNdefMessage>
+#include <QString>
 
 class NFCManager : public QObject
 {
@@ -13,6 +14,7 @@ public:
 
 private:
     QNearFieldManager* m_nfcManager;
+    QString m_nfcMessage;
 
 public slots:
     void startNfcDetection();

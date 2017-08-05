@@ -4,8 +4,10 @@ NFCManager::NFCManager(QObject* parent) :
     QObject(parent),
     m_nfcManager(new QNearFieldManager(this))
 {
-    connect(this, SIGNAL(targetDetected(QNearFieldTarget*)), this, SLOT(targetDetected(QNearFieldTarget*)));
-    connect(this, SIGNAL(targetLost(QNearFieldTarget*)), this, SLOT(targetLost(QNearFieldTarget*)));
+    connect(m_nfcManager, SIGNAL(targetDetected(QNearFieldTarget*)), this, SLOT(targetDetected(QNearFieldTarget*)));
+    connect(m_nfcManager, SIGNAL(targetLost(QNearFieldTarget*)), this, SLOT(targetLost(QNearFieldTarget*)));
+
+    startNfcDetection();
 }
 
 void NFCManager::startNfcDetection()

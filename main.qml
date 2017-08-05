@@ -6,16 +6,25 @@ ApplicationWindow {
     visible: true
 
     header: ToolBar {
+
         Button {
             id: navbutton
+
             onClicked: drawer.interact()
         }
     }
 
     Button {
+        id: nfcbutton
         anchors.centerIn: parent
         width: parent.width / 1.5
         height: parent.height / 5
+
+        transform: Translate {
+            x: drawer.position * nfcbutton.width * 0.33
+        }
+
+        onClicked: nfcManager.startNfcDetection()
     }
 
     Drawer {
@@ -23,11 +32,6 @@ ApplicationWindow {
         y: header.height
         width: window.width * 0.7
         height: window.height - header.height
-
-        /*Button {
-            id: nfcbutton
-            width: parent.width
-        }*/
 
         ListView {
             anchors.fill: parent
@@ -86,7 +90,7 @@ ApplicationWindow {
         }
     }
 
-    Label {
+    /*Label {
             id: content
 
             text: "Transcash"
@@ -98,5 +102,5 @@ ApplicationWindow {
             transform: Translate {
                 x: drawer.position * content.width * 0.33
             }
-        }
+        }*/
 }

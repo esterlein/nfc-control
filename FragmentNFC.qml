@@ -5,6 +5,9 @@ Rectangle {
     anchors.fill: parent
 
     Button {
+        id: nfcbutton
         anchors.centerIn: parent
+
+        onClicked: nfcManager.startNfcDetection()
     }
 }

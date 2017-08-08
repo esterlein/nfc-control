@@ -1,23 +1,17 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.2
-import Enginio 1.0
 
 ColumnLayout {
-    EnginioOAuth2Authentication {
-        id: identity
-        user: login.text
-        password: password.text
-    }
     anchors.fill: parent
-    anchors.margins: 3
-    spacing: 3
+    //anchors.margins: 3
+    //spacing: 3
 
     TextField {
         id: login
         Layout.fillWidth: true
         placeholderText: "Username"
-        enabled: enginioClient.authenticationState == Enginio.NotAuthenticated
+        //enabled: enginioClient.authenticationState == Enginio.NotAuthenticated
     }
 
     TextField {
@@ -25,7 +19,7 @@ ColumnLayout {
         Layout.fillWidth: true
         placeholderText: "Password"
         echoMode: TextInput.PasswordEchoOnEdit
-        enabled: enginioClient.authenticationState == Enginio.NotAuthenticated
+        //enabled: enginioClient.authenticationState == Enginio.NotAuthenticated
     }
 
     Button {
@@ -40,7 +34,7 @@ ColumnLayout {
         Layout.fillHeight: true
         Layout.fillWidth: true
 
-        Connections {
+        /*Connections {
             target: enginioClient
             onSessionAuthenticated: {
                 data.text = data.text + "User '"+ login.text +"' is logged in.\n\n" + JSON.stringify(reply.data, undefined, 2) + "\n\n"
@@ -51,24 +45,24 @@ ColumnLayout {
             onSessionTerminated: {
                 data.text = data.text + "Session closed.\n\n"
             }
-        }
+        }*/
     }
 
     states: [
         State {
             name: "NotAuthenticated"
-            when: enginioClient.authenticationState == Enginio.NotAuthenticated
+            //when: enginioClient.authenticationState == Enginio.NotAuthenticated
             PropertyChanges {
                 target: proccessButton
                 text: "Login"
                 onClicked: {
-                    enginioClient.identity = identity
+                    //enginioClient.identity = identity
                 }
             }
         },
         State {
             name: "Authenticating"
-            when: enginioClient.authenticationState == Enginio.Authenticating
+            //when: enginioClient.authenticationState == Enginio.Authenticating
             PropertyChanges {
                 target: proccessButton
                 text: "Authenticating..."
@@ -77,23 +71,23 @@ ColumnLayout {
         },
         State {
             name: "AuthenticationFailure"
-            when: enginioClient.authenticationState == Enginio.AuthenticationFailure
+            //when: enginioClient.authenticationState == Enginio.AuthenticationFailure
             PropertyChanges {
                 target: proccessButton
                 text: "Authentication failed, restart"
                 onClicked: {
-                    enginioClient.identity = null
+                    //enginioClient.identity = null
                 }
             }
         },
         State {
             name: "Authenticated"
-            when: enginioClient.authenticationState == Enginio.Authenticated
+            //when: enginioClient.authenticationState == Enginio.Authenticated
             PropertyChanges {
                 target: proccessButton
                 text: "Logout"
                 onClicked: {
-                    enginioClient.identity = null
+                    //enginioClient.identity = null
                 }
             }
         }

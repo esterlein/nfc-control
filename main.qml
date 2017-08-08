@@ -77,6 +77,7 @@ ApplicationWindow {
 
     Loader {
         id: loader
+        anchors.fill: parent
 
         function loadFragment(index){
             switch(index){
@@ -89,18 +90,4 @@ ApplicationWindow {
             }
         }
     }
-
-    /*Label {
-            id: content
-
-            text: "Transcash"
-            font.pixelSize: 50
-            anchors.fill: parent
-            verticalAlignment: Label.AlignVCenter
-            horizontalAlignment: Label.AlignHCenter
-
-            transform: Translate {
-                x: drawer.position * content.width * 0.33
-            }
-        }*/
 }

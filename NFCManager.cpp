@@ -22,28 +22,13 @@ void NFCManager::stopNfcDetection()
 
 void NFCManager::targetDetected(QNearFieldTarget* target)
 {
-    /*switch(m_touchAction){
-        case NoAction:
-            break;
-        case ReadNdef:
-            connect(target, SIGNAL(ndefMessageRead(QNdefMessage)), this, SLOT(ndefMessageRead(QNdefMessage)));
-            connect(target, SIGNAL(error(QNearFieldTarget::Error,QNearFieldTarget::RequestId)), this, SLOT(targetError(QNearFieldTarget::Error,QNearFieldTarget::RequestId)));
+    connect(target, SIGNAL(ndefMessageRead(QNdefMessage)), this, SLOT(ndefMessageRead(QNdefMessage)));
+    connect(target, SIGNAL(error(QNearFieldTarget::Error, QNearFieldTarget::RequestId)), this, SLOT(targetError(QNearFieldTarget::Error,QNearFieldTarget::RequestId)));
 
-            m_request = target->readNdefMessages();
-            if (!m_request.isValid()){
-                targetError(QNearFieldTarget::NdefReadError, m_request);
-            }
-            break;
-        case WriteNdef:
-            connect(target, SIGNAL(ndefMessagesWritten()), this, SLOT(ndefMessageWritten()));
-            connect(target, SIGNAL(error(QNearFieldTarget::Error,QNearFieldTarget::RequestId)), this, SLOT(targetError(QNearFieldTarget::Error,QNearFieldTarget::RequestId)));
-
-            m_request = target->writeNdefMessages(QList<QNdefMessage>() << ndefMessage());
-            if (!m_request.isValid()){
-                targetError(QNearFieldTarget::NdefWriteError, m_request);
-            }
-            break;
-        }*/
+    m_request = target->readNdefMessages();
+    if(!m_request.isValid()){
+        targetError(QNearFieldTarget::NdefReadError, m_request);
+    }
 }
 
 void NFCManager::targetLost(QNearFieldTarget* target)
@@ -65,3 +50,29 @@ void NFCManager::ndefMessageWritten()
 {
 
 }
+
+
+
+
+/*switch(m_touchAction){
+    case NoAction:
+        break;
+    case ReadNdef:
+        connect(target, SIGNAL(ndefMessageRead(QNdefMessage)), this, SLOT(ndefMessageRead(QNdefMessage)));
+        connect(target, SIGNAL(error(QNearFieldTarget::Error,QNearFieldTarget::RequestId)), this, SLOT(targetError(QNearFieldTarget::Error,QNearFieldTarget::RequestId)));
+
+        m_request = target->readNdefMessages();
+        if (!m_request.isValid()){
+            targetError(QNearFieldTarget::NdefReadError, m_request);
+        }
+        break;
+    case WriteNdef:
+        connect(target, SIGNAL(ndefMessagesWritten()), this, SLOT(ndefMessageWritten()));
+        connect(target, SIGNAL(error(QNearFieldTarget::Error,QNearFieldTarget::RequestId)), this, SLOT(targetError(QNearFieldTarget::Error,QNearFieldTarget::RequestId)));
+
+        m_request = target->writeNdefMessages(QList<QNdefMessage>() << ndefMessage());
+        if (!m_request.isValid()){
+            targetError(QNearFieldTarget::NdefWriteError, m_request);
+        }
+        break;
+}*/

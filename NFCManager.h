@@ -14,6 +14,7 @@ public:
 
 private:
     QNearFieldManager* m_nfcManager;
+    QNearFieldTarget::RequestId m_request;
     QString m_nfcMessage;
 
 public slots:
@@ -24,6 +25,6 @@ private slots:
     void targetDetected(QNearFieldTarget* target);
     void targetLost(QNearFieldTarget* target);
     void targetError(QNearFieldTarget::Error error, QNearFieldTarget::RequestId request);
-    void ndefMessageRead(QNdefMessage* message);
+    void ndefMessageRead(QNdefMessage message);
     void ndefMessageWritten();
 };

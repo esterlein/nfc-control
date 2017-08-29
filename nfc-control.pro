@@ -4,7 +4,8 @@ QT += qml quick nfc
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    NFCManager.cpp
+    NFCManager.cpp \
+    NDEFRecord.cpp
 
 RESOURCES += qml.qrc
 
@@ -31,4 +32,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    NFCManager.h
+    NFCManager.h \
+    NDEFRecord.h

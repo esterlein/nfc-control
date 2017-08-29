@@ -1,3 +1,4 @@
+#include <QDebug>
 #include "NFCManager.h"
 
 NFCManager::NFCManager(QObject* parent) :
@@ -23,17 +24,29 @@ void NFCManager::stopNfcDetection()
 void NFCManager::targetDetected(QNearFieldTarget* target)
 {
     connect(target, SIGNAL(ndefMessageRead(QNdefMessage)), this, SLOT(ndefMessageRead(QNdefMessage)));
-    connect(target, SIGNAL(error(QNearFieldTarget::Error, QNearFieldTarget::RequestId)), this, SLOT(targetError(QNearFieldTarget::Error,QNearFieldTarget::RequestId)));
+    connect(target, SIGNAL(ndefMessagesWritten()), this, SLOT(ndefMessageWritten()));
+    connect(target, SIGNAL(error(QNearFieldTarget::Error, QNearFieldTarget::RequestId)), this, SLOT(targetError(QNearFieldTarget::Error, QNearFieldTarget::RequestId)));
 
-    m_request = target->readNdefMessages();
+    /*m_request = target->readNdefMessages();
     if(!m_request.isValid()){
         targetError(QNearFieldTarget::NdefReadError, m_request);
-    }
+    }*/
+
+    /*QString message = "NDEF1";
+    m_request = target->writeNdefMessages(QList<QNdefMessage>() << QNdefMessage::fromByteArray(message.toUtf8()));
+    if(!m_request.isValid()){
+        targetError(QNearFieldTarget::NdefWriteError, m_request);
+    }*/
 }
 
-void NFCManager::targetLost(QNearFieldTarget* target)
+void NFCManager::ndefMessageRead(QNdefMessage message)
 {
-    target->deleteLater();
+    qDebug() << "read";
+}
+
+void NFCManager::ndefMessageWritten()
+{
+    qDebug() << "written";
 }
 
 void NFCManager::targetError(QNearFieldTarget::Error error, QNearFieldTarget::RequestId request)
@@ -41,15 +54,20 @@ void NFCManager::targetError(QNearFieldTarget::Error error, QNearFieldTarget::Re
 
 }
 
-void NFCManager::ndefMessageRead(QNdefMessage* message)
+void NFCManager::targetLost(QNearFieldTarget* target)
 {
-
+    target->deleteLater();
 }
 
-void NFCManager::ndefMessageWritten()
-{
 
-}
+
+
+
+
+
+
+
+
 
 
 

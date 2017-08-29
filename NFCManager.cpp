@@ -1,5 +1,6 @@
 #include <QDebug>
 #include "NFCManager.h"
+#include "NDEFRecord.h"
 
 NFCManager::NFCManager(QObject* parent) :
     QObject(parent),
@@ -27,13 +28,15 @@ void NFCManager::targetDetected(QNearFieldTarget* target)
     connect(target, SIGNAL(ndefMessagesWritten()), this, SLOT(ndefMessageWritten()));
     connect(target, SIGNAL(error(QNearFieldTarget::Error, QNearFieldTarget::RequestId)), this, SLOT(targetError(QNearFieldTarget::Error, QNearFieldTarget::RequestId)));
 
-    /*m_request = target->readNdefMessages();
+    m_request = target->readNdefMessages();
     if(!m_request.isValid()){
         targetError(QNearFieldTarget::NdefReadError, m_request);
-    }*/
+    }
 
-    /*QString message = "NDEF1";
-    m_request = target->writeNdefMessages(QList<QNdefMessage>() << QNdefMessage::fromByteArray(message.toUtf8()));
+    /*NDEFRecord record;
+    record.setTag(1);
+    QNdefMessage message(record);
+    m_request = target->writeNdefMessages(QList<QNdefMessage>() << message);
     if(!m_request.isValid()){
         targetError(QNearFieldTarget::NdefWriteError, m_request);
     }*/
@@ -41,7 +44,11 @@ void NFCManager::targetDetected(QNearFieldTarget* target)
 
 void NFCManager::ndefMessageRead(QNdefMessage message)
 {
-    qDebug() << "read";
+    /*for(int i = 0; i < message.size(); ++i){
+        qDebug() << message.at(i).payload();
+    }*/
+    m_nfcRecord = message.at(0).payload().remove(0, 3);
+    qDebug() << m_nfcRecord;
 }
 
 void NFCManager::ndefMessageWritten()

@@ -6,9 +6,12 @@ ApplicationWindow {
     visible: true
 
     header: ToolBar {
+        id: toolbar
+        height: 100
 
         Button {
             id: navbutton
+            height: parent.height
 
             onClicked: drawer.interact()
         }

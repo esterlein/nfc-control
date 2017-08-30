@@ -49,11 +49,25 @@ void NFCManager::ndefMessageRead(QNdefMessage message)
     }*/
     m_nfcRecord = message.at(0).payload().remove(0, 3);
     qDebug() << m_nfcRecord;
+
+    emit nfcRecordChanged();
 }
 
 void NFCManager::ndefMessageWritten()
 {
     qDebug() << "written";
+}
+
+QString NFCManager::getNfcRecord() const
+{
+    return m_nfcRecord;
+}
+
+void NFCManager::setNfcRecord(const QString& nfcRecord)
+{
+    m_nfcRecord = nfcRecord;
+
+    emit nfcRecordChanged();
 }
 
 void NFCManager::targetError(QNearFieldTarget::Error error, QNearFieldTarget::RequestId request)

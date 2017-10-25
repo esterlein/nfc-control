@@ -1,14 +1,41 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.2
-
-ColumnLayout {
+/*
+Rectangle {
+  width: 640
+  height: 480
+  Background { anchors.fill: parent }
+  Column {
+    anchors.centerIn: parent
+    spacing: 16
+    Column {
+      spacing: 4
+      MediumText { text: "Username" }
+      LineInput { focus: true }
+    }
+    Column {
+      spacing: 4
+      MediumText { text: "Password" }
+      LineInput { input.echoMode: TextInput.Password }
+    }
+    Row {
+      spacing: 16
+      anchors.horizontalCenter: parent.horizontalCenter
+      Button { text: "Login"; onClicked: console.log("login") }
+      Button { text: "Guest"; onClicked: console.log("guest") }
+    }
+  }
+}
+*/
+Rectangle {
     anchors.fill: parent
-    //anchors.margins: 3
-    //spacing: 3
+    width: parent.width
 
-    Item {
-        anchors.verticalCenter: parent.verticalCenter
+    ColumnLayout {
+        anchors.centerIn: parent
+        width: parent.width / 2
+        spacing: 16
 
         TextField {
             id: login
@@ -26,29 +53,29 @@ ColumnLayout {
         }
 
         Button {
-            id: proccessButton
+            id: loginButton
             Layout.fillWidth: true
         }
 
         TextArea {
-            id: data
-            text: "Not logged in.\n\n"
+            id: status
+            text: "Not logged in\n\n"
             readOnly: true
             Layout.fillHeight: true
             Layout.fillWidth: true
 
             /*Connections {
-                target: enginioClient
-                onSessionAuthenticated: {
-                    data.text = data.text + "User '"+ login.text +"' is logged in.\n\n" + JSON.stringify(reply.data, undefined, 2) + "\n\n"
-                }
-                onSessionAuthenticationError: {
-                    data.text = data.text + "Authentication of user '"+ login.text +"' failed.\n\n" + JSON.stringify(reply.data, undefined, 2) + "\n\n"
-                }
-                onSessionTerminated: {
-                    data.text = data.text + "Session closed.\n\n"
-                }
-            }*/
+                    target: enginioClient
+                    onSessionAuthenticated: {
+                        data.text = data.text + "User '"+ login.text +"' is logged in.\n\n" + JSON.stringify(reply.data, undefined, 2) + "\n\n"
+                    }
+                    onSessionAuthenticationError: {
+                        data.text = data.text + "Authentication of user '"+ login.text +"' failed.\n\n" + JSON.stringify(reply.data, undefined, 2) + "\n\n"
+                    }
+                    onSessionTerminated: {
+                        data.text = data.text + "Session closed.\n\n"
+                    }
+                }*/
         }
 
         states: [
@@ -56,7 +83,7 @@ ColumnLayout {
                 name: "NotAuthenticated"
                 //when: enginioClient.authenticationState == Enginio.NotAuthenticated
                 PropertyChanges {
-                    target: proccessButton
+                    target: loginButton
                     text: "Login"
                     onClicked: {
                         //enginioClient.identity = identity
@@ -67,7 +94,7 @@ ColumnLayout {
                 name: "Authenticating"
                 //when: enginioClient.authenticationState == Enginio.Authenticating
                 PropertyChanges {
-                    target: proccessButton
+                    target: loginButton
                     text: "Authenticating..."
                     enabled: false
                 }
@@ -76,7 +103,7 @@ ColumnLayout {
                 name: "AuthenticationFailure"
                 //when: enginioClient.authenticationState == Enginio.AuthenticationFailure
                 PropertyChanges {
-                    target: proccessButton
+                    target: loginButton
                     text: "Authentication failed, restart"
                     onClicked: {
                         //enginioClient.identity = null
@@ -87,7 +114,7 @@ ColumnLayout {
                 name: "Authenticated"
                 //when: enginioClient.authenticationState == Enginio.Authenticated
                 PropertyChanges {
-                    target: proccessButton
+                    target: loginButton
                     text: "Logout"
                     onClicked: {
                         //enginioClient.identity = null
